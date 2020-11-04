@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xk.love.cly.dao.UserMapper">
+
+    <insert id="save" parameterType="com.xk.love.cly.entity.User" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+        insert into user(username,password,sex,role) values(#{username},#{password},#{sex},#{role})
+    </insert>
+
+    <select id="queryList" resultType="com.xk.love.cly.entity.User">
+        select username,sex,role from user
+    </select>
+
+    <select id="queryUser" resultType="com.xk.love.cly.entity.User">
+        select username,sex,role from user where username=#{username} and password=#{password}
+    </select>
+</mapper>

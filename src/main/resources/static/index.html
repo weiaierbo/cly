@@ -1,0 +1,281 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>小宇专用工具</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--<link rel="apple-touch-icon" href="apple-icon.png">-->
+    <link rel="icon" href="images/me.ico" type="image/x-icon">
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="vendors/jqvmap/dist/jqvmap.min.css">
+
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=3.0&ak=DZWKqRDzaFCxDg8cGcNDkCFLDcilv0RZ"></script>
+    <!--加载鼠标绘制工具-->
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css"/>
+    <!--加载检索信息窗口-->
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/colpick.css?v=1.2"/>
+    <style type="text/css">
+        #allmap {
+            width: 100%;
+            height: 700px;
+            overflow: hidden;
+            border: 1px solid #9da0a8;
+            margin-bottom: 20px;
+        }
+
+        .BMap_cpyCtrl {
+            display: none;
+        }
+
+        .anchorBL {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- Left Panel -->
+
+<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+                    aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <!-- <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
+            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a> -->
+        </div>
+
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>首页 </a>
+                </li>
+                <h3 class="menu-title">好心情</h3><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>查询服务</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-puzzle-piece"></i><a href="index.html">地点查询</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside><!-- /#left-panel -->
+
+
+<div id="right-panel" class="right-panel">
+
+    <header id="header" class="header">
+
+        <div class="header-menu">
+
+            <div class="col-sm-7">
+                <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                <div class="header-left">
+
+                    <div class="dropdown for-notification">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-bell"></i>
+                            <span class="count bg-danger">0</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="notification">
+                            <!--<p class="red">你有1条通知</p>
+                            <a class="dropdown-item media bg-flat-color-4" href="#">
+                                <i class="fa fa-info"></i>
+                                <p>天天 very miss you</p>
+                            </a>-->
+                        </div>
+                    </div>
+
+                    <div class="dropdown for-message">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="message"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ti-email"></i>
+                            <span class="count bg-primary">0</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="message">
+                           <!-- <p class="red">你有一封邮件</p>
+                            <a class="dropdown-item media bg-flat-color-1" href="#">
+                                <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
+                                <span class="message media-body">
+                                    <span class="name float-left">xt</span>
+                                    <span class="time float-right">此时此刻</span>
+                                        <p>天天 Miss you</p>
+                                </span>
+                            </a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-5">
+                <div class="user-area dropdown float-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                    </a>
+
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="logout"><i class="fa fa-power-off"></i> 退出</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </header>
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <!--<a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>-->
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>地点查询</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li class="active"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-4 col-md-6 col-md-offset-4">
+                <input type="text" class="form-control" id="searchContent" placeholder="输入地址,点击查询"/>
+            </div>
+            <div class="col-sm-4 col-sm-offset-1 col-md-2 col-md-offset-2">
+                <button type="button" id="searchButton" class="btn btn-primary">查询</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-4 col-md-6 col-md-offset-4">
+                <div id="searchResultPanel"
+                     style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 2%;">
+
+
+            <div class="col-xl-12 col-md-12">
+                <div id="allmap" style="overflow:hidden;zoom:1;">
+                    <div id="map"
+                         style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+                </div>
+                <!-- /# card -->
+            </div>
+
+        </div> <!-- .content -->
+    </div><!-- /#right-panel -->
+
+    <!--标记内容模态框-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <!--<h4 class="modal-title" id="exampleModalLabel">添加标记</h4>-->
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">标记内容:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="saveLabel">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--提示结果模态框-->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="operateResultModal">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-md-offset-5" id="operateResult" style="margin-left: 30%;margin-top: 10px;"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Right Panel -->
+
+<script src="vendors/jquery/dist/jquery.min.js"></script>
+<script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets\js\map\colpick.js?v=1.1"></script>
+<script type="text/javascript" src="assets\js\map\mapsoso.js?v=1.41"></script>
+<!-- <script>
+    (function($) {
+        "use strict";
+
+        jQuery('#vmap').vectorMap({
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#1de9b6',
+            enableZoom: true,
+            showTooltip: true,
+            values: sample_data,
+            scaleColors: ['#1de9b6', '#03a9f5'],
+            normalizeFunction: 'polynomial'
+        });
+    })(jQuery);
+</script>
+-->
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xk.love.cly.dao.FenceGraphMapper">
+
+    <insert id="save" parameterType="com.xk.love.cly.entity.FenceGraph" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+        insert into fence_graph(color,graph_type,points,radius,created) values(#{color},#{graphType},#{points},#{radius},#{created})
+    </insert>
+
+    <select id="listAll" resultType="com.xk.love.cly.entity.FenceGraph">
+        select * from fence_graph
+    </select>
+
+    <update id="update" parameterType="com.xk.love.cly.entity.FenceGraph">
+        update fence_graph
+        <set>
+            <if test="graphType != null and graphType !=''">
+                graph_type=#{graphType},
+            </if>
+            <if test="radius != null and radius !=''">
+                radius=#{radius},
+            </if>
+            points=#{points}
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="delete">
+        delete from fence_graph where id=#{id}
+    </delete>
+</mapper>

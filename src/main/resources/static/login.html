@@ -1,0 +1,145 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--<link rel="apple-touch-icon" href="apple-icon.png">-->
+    <link rel="shortcut icon" href="images/me.ico">
+
+
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+
+</head>
+
+<body class="">
+
+
+<div class="sufee-login d-flex align-content-center flex-wrap">
+    <div class="container">
+        <div class="login-content">
+            <div class="login-logo">
+                <a href="index.html">
+                    <!--<img class="align-content" src="images/yu.jpg" alt="">-->
+                    <h1>我们，又见面了</h1>
+                </a>
+            </div>
+            <div class="login-form">
+                <form>
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <input type="text" id="username" class="form-control" placeholder="请输入用户名">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="password" class="form-control" placeholder="请输入密码">
+                    </div>
+                    <!--<div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Remember Me
+                        </label>
+                        <label class="pull-right">
+                            <a href="#">Forgotten Password?</a>
+                        </label>
+
+                    </div>-->
+                    <button type="button" class="btn btn-success btn-flat m-b-30 m-t-30" id="login">登录</button>
+                    <!--<div class="social-login-content">
+                        <div class="social-button">
+                            <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i
+                                    class="ti-facebook"></i>Sign in with facebook
+                            </button>
+                            <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i
+                                    class="ti-twitter"></i>Sign in with twitter
+                            </button>
+                        </div>
+                    </div>-->
+                    <div class="m-t-15 text-center">
+                        <p id="loginResult"></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="vendors/jquery/dist/jquery.min.js"></script>
+<script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+    (function ($) {
+        "use strict";
+        $("#login").on('click',login);
+        function login() {
+
+            let username = $("#username").val();
+            let password = $("#password").val();
+
+            if(username == null || username == "" || password == null || password == "") {
+                $("#loginResult").text('用户名或密码不能为空!').css({"color":"red"});
+                return;
+            }
+            let user = {"username":username,"password":password};
+
+            $.ajax({
+                //请求方式
+                type: "post",
+                //请求的媒体类型
+                contentType: "application/json;charset=UTF-8",
+                //请求地址
+                url: "login",
+                //数据
+                data: JSON.stringify(user),
+                //请求成功
+                success: function (result) {
+                    console.log(result);
+                    if (result.status == 200) {
+                        $("#loginResult").text('登陆成功!即将跳转...').css({"color":"green"});
+                        let user = result.data;
+                        let localUser = JSON.stringify(user);
+                        sessionStorage.setItem('localUser', localUser);
+
+                        setTimeout(function(){window.location="index.html";},1000);
+                    } else {
+                        $("#loginResult").text("登陆失败:"+result.message).css({"color":"red"});
+                    }
+
+                },
+                //请求失败，包含具体的错误信息
+                error: function (e) {
+                    //alert("异常");
+                }
+            });
+        }
+    })(jQuery);
+
+
+</script>
+
+</body>
+
+</html>
