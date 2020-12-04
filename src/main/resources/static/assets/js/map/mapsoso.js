@@ -206,7 +206,7 @@
         generateGraphObj(marker,drawingModeType);
         graphObj.id = null;
         var id=marker.da;
-        if(id.indexOf("polygon") != -1){//isNumber(marker.da)
+        if(id !=null && id != undefined && id.indexOf("polygon") != -1){//isNumber(marker.da)
             graphObj.id = id.substring(7);
             updateGraph(graphObj);
         } else {
