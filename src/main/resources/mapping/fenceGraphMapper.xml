@@ -26,4 +26,7 @@
     <delete id="delete">
         delete from fence_graph where id=#{id}
     </delete>
+    <select id="queryGraphById" resultType="com.xk.love.cly.entity.FenceGraph">
+        select * from fence_graph where id=#{id}
+    </select>
 </mapper>

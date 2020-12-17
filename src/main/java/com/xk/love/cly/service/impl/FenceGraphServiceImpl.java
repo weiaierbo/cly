@@ -36,4 +36,9 @@ public class FenceGraphServiceImpl implements FenceGraphService {
     public void delete(Long id) {
         fenceGraphMapper.delete(id);
     }
+
+    @Override
+    public FenceGraph queryGraphById(Long id) {
+        return fenceGraphMapper.queryGraphById(id);
+    }
 }

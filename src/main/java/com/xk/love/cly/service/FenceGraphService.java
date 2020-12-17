@@ -13,4 +13,6 @@ public interface FenceGraphService {
     List<FenceGraph> listAll();
 
     void delete(Long id);
+
+    FenceGraph queryGraphById(Long id);
 }

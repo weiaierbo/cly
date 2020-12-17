@@ -60,4 +60,10 @@ public class FenceGraphController {
         fenceGraphService.delete(id);
         return RestResponse.successWithMessage("删除成功");
     }
+
+    @GetMapping("queryGraphById")
+    public RestResponse<String> queryGraphById(Long id){
+        FenceGraph fenceGraph = fenceGraphService.queryGraphById(id);
+        return RestResponse.successWithData(fenceGraph);
+    }
 }

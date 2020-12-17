@@ -23,18 +23,17 @@
     console.log(copyCtrl);
     $("span[_cid |='1']").css("display","none");*/
     //定位
-    var geolocation = new BMap.Geolocation();
+/*    var geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function (r) {
         if (this.getStatus() == BMAP_STATUS_SUCCESS) {
             var mk = new BMap.Marker(r.point);
             map.addOverlay(mk);
             map.panTo(r.point);
         } else {
-            //alert('百度地图定位服务错误,' + this.getStatus());
             $("#operateResult").text('百度地图定位服务错误');
             $("#operateResultModal").modal("show");
         }
-    }, {enableHighAccuracy: true})
+    }, {enableHighAccuracy: true});*/
 
     var overlays = [];
     var graphObj = {"id":null,"color":"red","graphType": "", "points": ""};
@@ -211,11 +210,16 @@
             updateGraph(graphObj);
         } else {
             saveFencePoints(marker);
+            //移除marker，重新加载，用以添加覆盖层
+            graphObj.id = marker.da.substring(7);
+            map.removeOverlay(marker);
+            loadFenceGraph(graphObj);
         }
         graphObj = {};
     }
 
 
+    /*** ------------搜索区域----------- **/
 
     /**
      * 搜索使用
@@ -298,6 +302,7 @@
             url : "fenceGraph/save",
             //数据
             data : JSON.stringify(graphObj),
+            async:false,
             //请求成功
             success : function(result) {
                 if(result.status == 200) {
@@ -331,6 +336,7 @@
             url : "fenceGraph/update",
             //数据
             data : JSON.stringify(graphObj),
+            async:false,
             //请求成功
             success : function(result) {
                 if(result.status == 200) {
@@ -347,6 +353,9 @@
             }
         });
     }
+
+    /** ----------标记区域-----------  **/
+
     var labelPoint = {};
     var labelArray = new Array();
 
@@ -508,38 +517,43 @@
         }
 
         fenceGraphs.forEach(function(item) {
-            var graphType = item.graphType;
-            var points = JSON.parse(item.points);
-            var pointsArr = new Array();
-            for(var i in points){//parseFloat(
-                pointsArr.push(new BMap.Point(points[i].lng,points[i].lat));
-            }
-
-            let fenceGraphObj;
-            if (graphType == "circle") {
-                //圆
-                /*if(BMapLib.GeoUtils.isPointInCircle(value, e.overlay)) {
-                    //cirCount++;
-                }*/
-                var circleCenter = new BMap.Point(points[0].lng,points[0].lat);
-                fenceGraphObj = new BMap.Circle(circleCenter,item.radius,styleOptions); //创建圆
-
-            } else if (graphType == "rectangle" || graphType == "polygon") {
-                //矩形  或  多边形
-                /*if(BMapLib.GeoUtils.isPointInPolygon(value, e.overlay)) {
-                    //polyCount++;
-                }*/
-                fenceGraphObj = new BMap.Polygon(pointsArr,styleOptions);
-            } else if(graphType == 'polyline') {
-                fenceGraphObj = new BMap.Polyline(pointsArr,styleOptions);
-            }
-            fenceGraphObj.setStrokeColor(item.color);
-            fenceGraphObj.setFillColor(item.color);
-            fenceGraphObj.da = "polygon"+item.id;
-            map.addOverlay(fenceGraphObj);
-
-            bindMenuToOverlay(fenceGraphObj,graphType);
+            loadFenceGraph(item);
         })
+    };
+
+    function loadFenceGraph(fenceGraph) {
+        var item = fenceGraph;
+        var graphType = item.graphType;
+        var points = JSON.parse(item.points);
+        var pointsArr = new Array();
+        for(var i in points){//parseFloat(
+            pointsArr.push(new BMap.Point(points[i].lng,points[i].lat));
+        }
+
+        let fenceGraphObj;
+        if (graphType == "circle") {
+            //圆
+            /*if(BMapLib.GeoUtils.isPointInCircle(value, e.overlay)) {
+                //cirCount++;
+            }*/
+            var circleCenter = new BMap.Point(points[0].lng,points[0].lat);
+            fenceGraphObj = new BMap.Circle(circleCenter,item.radius,styleOptions); //创建圆
+
+        } else if (graphType == "rectangle" || graphType == "polygon") {
+            //矩形  或  多边形
+            /*if(BMapLib.GeoUtils.isPointInPolygon(value, e.overlay)) {
+                //polyCount++;
+            }*/
+            fenceGraphObj = new BMap.Polygon(pointsArr,styleOptions);
+        } else if(graphType == 'polyline') {
+            fenceGraphObj = new BMap.Polyline(pointsArr,styleOptions);
+        }
+        fenceGraphObj.setStrokeColor(item.color);
+        fenceGraphObj.setFillColor(item.color);
+        fenceGraphObj.da = "polygon"+item.id;
+        map.addOverlay(fenceGraphObj);
+
+        bindMenuToOverlay(fenceGraphObj,graphType);
     };
 
     function listAllLabels() {
