@@ -23,4 +23,8 @@ public class TestJOL {
         System.out.println(VM.current().details());
         System.out.println(ClassLayout.parseInstance(s).toPrintable());
     }
+    @Test
+    public void test2(){
+        System.out.println("今天登不上github");
+    }
 }
