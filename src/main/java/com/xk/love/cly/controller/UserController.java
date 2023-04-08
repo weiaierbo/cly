@@ -4,6 +4,7 @@ import com.xk.love.cly.entity.User;
 import com.xk.love.cly.service.UserService;
 import com.xk.love.cly.vo.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Value("${baidu.map.ak}")
+    private String ak;
+
     @ResponseBody
     @RequestMapping("queryList")
     public List<User> queryList(){
@@ -35,6 +39,7 @@ public class UserController {
         if(dbUser == null) {
             return RestResponse.error("用户名或密码错误");
         }
+        dbUser.setAk(ak);
         HttpSession session = request.getSession();
         session.setAttribute("SESSION_USER",user);
         return RestResponse.successWithData(dbUser);

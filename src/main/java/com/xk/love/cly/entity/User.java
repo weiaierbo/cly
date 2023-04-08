@@ -18,4 +18,5 @@ public class User {
      */
     private Integer role;
 
+    private String ak;
 }

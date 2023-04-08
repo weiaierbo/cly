@@ -122,7 +122,7 @@
                         let user = result.data;
                         let localUser = JSON.stringify(user);
                         sessionStorage.setItem('localUser', localUser);
-
+                        sessionStorage.setItem('ak', user.ak);
                         setTimeout(function(){window.location="index.html";},1000);
                     } else {
                         $("#loginResult").text("登陆失败:"+result.message).css({"color":"red"});
